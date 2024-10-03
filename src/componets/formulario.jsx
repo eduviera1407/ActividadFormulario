@@ -35,7 +35,7 @@ function FormRegistro() {
   const handleRatingChange = (event, newValue) => {
     setData({
       ...data,
-      rating: newValue,
+      rating: newValue
     });
   };
 
@@ -125,9 +125,10 @@ function FormRegistro() {
                 value={data.option}
                 onChange={handleChange}
               >
-                <FormControlLabel value="masculino" control={<Radio />} label="Masculino" />
-                <FormControlLabel value="femenino" control={<Radio />} label="Femenino" />
-                <FormControlLabel value="otro" control={<Radio />} label="Otro" />
+                
+                <FormControlLabel value="masculino" required control={<Radio />} label="Masculino" />
+                <FormControlLabel value="femenino"required control={<Radio />} label="Femenino" />
+                <FormControlLabel value="otro" required control={<Radio />} label="Otro" />
               </RadioGroup>
             </FormControl>
           </Grid2>
@@ -147,18 +148,17 @@ function FormRegistro() {
                 <MenuItem value="java">Java</MenuItem>
                 <MenuItem value="javascript">JavaScript</MenuItem>
                 <MenuItem value="python">Python</MenuItem>
-                <MenuItem value="ruby">Ruby</MenuItem>
+                <MenuItem value="Lua">LUA</MenuItem>
               </Select>
             </FormControl>
           </Grid2>
 
           {/* Checkbox para aceptar términos */}
           <Grid2 direction={{ xs: "column", sm: "column", md: "column", lg: "column", xl: "column" }} size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
-
             <FormControlLabel
               control={
                 <Checkbox
-                 required
+                  required
                   checked={data.acceptTerms}
                   onChange={handleCheckboxChange}
                   color="primary"
@@ -172,15 +172,23 @@ function FormRegistro() {
           <Grid2 direction={{ xs: "column", sm: "column", md: "column", lg: "column", xl: "column" }} size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
             <Typography>Puntúa esta encuesta</Typography>
             <Rating
-              name="rating"
+              required
               value={data.rating}
+              name="rating"
               onChange={handleRatingChange}
             />
           </Grid2>
 
           {/* Botones de registro y limpieza */}
           <Grid2 size={{ xs: 6, sm: 6, md: 6, lg: 6, xl: 6 }}>
-            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3 }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mt: 3 }}
+              disabled={!data.acceptTerms} // Botón deshabilitado si no se aceptan los términos
+            >
               Enviar
             </Button>
           </Grid2>
@@ -203,8 +211,6 @@ function FormRegistro() {
           <Button onClick={handleConfirmYes} color="primary">Sí</Button>
         </DialogActions>
       </Dialog>
-
-      
     </Container>
   );
 }
